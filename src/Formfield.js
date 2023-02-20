@@ -1,17 +1,17 @@
-import { Button, TextField } from '@mui/material'
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
 export default function Formfield() {
     const [inputs, setInputs] = useState({
         name:"",
         email:'',
-        password:''
+        password:'',
+        subscribe:false
     })
 
     const hangleChange=(e)=>{
         setInputs({ ...inputs,
-        [e.target.name]:e.target.value})
-        
+        [e.target.name]:e.target.value})        
     }
 
     const handleSubmit=(e)=> {
@@ -22,7 +22,7 @@ export default function Formfield() {
 
   return (
     <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width:'30%'}}>
             <TextField 
                 placeholder='Name' 
                 type={'text'} 
@@ -50,6 +50,11 @@ export default function Formfield() {
                 name='password'
                 onChange={hangleChange}
             />
+            <FormGroup>
+                 <FormControlLabel control={<Checkbox onChange={()=> setInputs((prev)=> ({
+                    ...prev, subscribe: !inputs.subscribe
+                 }))}  />} label="subscribe" />
+            </FormGroup>
             <Button type='submit'>submit</Button>
         </form>
 
